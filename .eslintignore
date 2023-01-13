@@ -1,0 +1,6 @@
+*.yml
+*.json
+
+node_modules
+dist
+bin

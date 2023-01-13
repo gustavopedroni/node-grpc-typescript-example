@@ -1,9 +1,15 @@
-import { ChannelCredentials } from '@grpc/grpc-js'
-import { NotesClient } from '../proto/notes_grpc_pb'
-import { Void } from '../proto/notes_pb'
+import { createChannel, createClient } from 'nice-grpc'
 
-const client = new NotesClient('0.0.0.0:50052', ChannelCredentials.createInsecure())
-client.list(new Void(), (err, notes) => {
-  if (err) return console.log(err)
-  console.log(notes.toObject())
-})
+import { createReport, generateReport } from '@src/test'
+
+import { ReportClient, ReportDefinition } from '@proto/report'
+
+const channel = createChannel('0.0.0.0:15055')
+const client: ReportClient = createClient(ReportDefinition, channel)
+
+async function boostrap() {
+  await createReport(client)
+  await generateReport(client)
+}
+
+boostrap()

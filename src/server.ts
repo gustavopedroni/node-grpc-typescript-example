@@ -1,18 +1,18 @@
-import { promisify } from 'util'
-import { Server, ServerCredentials } from '@grpc/grpc-js'
-import { NotesServer } from './controllers/notes'
-import { NotesService } from '../proto/notes_grpc_pb'
+import { createServer } from 'nice-grpc'
+
+import { ReportServiceImpl } from '@src/services/report'
+
+import { ReportDefinition } from '@proto/report'
 
 async function boostrap() {
-  const server = new Server()
-  server.addService(NotesService, new NotesServer())
+  const server = createServer()
 
-  const bindPromise = promisify(server.bindAsync).bind(server)
+  server.add(ReportDefinition, new ReportServiceImpl())
 
-  const port: number = await bindPromise('0.0.0.0:50052', ServerCredentials.createInsecure())
-  console.log(`GRPC Server is listing on port ${port}`)
-  server.start()
+  const address = '0.0.0.0:15055'
 
+  await server.listen(address)
+  console.log(`gRPC server is running on ${address}`)
 }
 
 boostrap()

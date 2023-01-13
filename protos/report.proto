@@ -1,0 +1,50 @@
+syntax = "proto3";
+import "google/protobuf/struct.proto";
+import "google/protobuf/timestamp.proto";
+
+package grpc.report;
+
+service Report {
+  rpc create (CreateReportRequest) returns (CreateReportResponse);
+  rpc generate (stream GenerateReportRequest) returns (GenerateReportResponse);
+}
+
+enum ReportType {
+  XLSX = 0;
+}
+
+enum ReportStatus {
+  PROGRESS = 0;
+  ERROR = 1;
+  SUCCESS = 2;
+}
+
+message CreateReportRequest {
+  string name = 1;
+  ReportType type = 2;
+  string area = 3;
+  google.protobuf.Struct generate_params = 4;
+  string file_name = 5;
+}
+
+message CreateReportResponse {
+  string id = 1;
+  string name = 2;
+  ReportType type = 3;
+  string area = 4;
+  google.protobuf.Struct generate_params = 5;
+  ReportStatus status = 6;
+  string file_name = 7;
+  google.protobuf.Timestamp	created_at = 8;
+  google.protobuf.Timestamp	updated_at = 9;
+}
+
+message GenerateReportRequest {
+  string id = 1;
+  repeated google.protobuf.Struct data = 2;
+}
+
+message GenerateReportResponse {
+  string id = 1;
+  google.protobuf.Timestamp finished_at = 2;
+}

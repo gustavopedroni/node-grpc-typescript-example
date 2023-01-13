@@ -1,0 +1,32 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "ESNext",
+    "strict": true,
+    "inlineSourceMap": true,
+    "strictPropertyInitialization": false,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "resolveJsonModule": true,
+    "baseUrl": "./",
+    "typeRoots": ["./node_modules/@types", "./src/@types"],
+    "paths": {
+      "@proto/*": ["compiled_proto/*"],
+      "@src/*": ["src/*"],
+      "@tests/*": ["tests/*"],
+      "prisma/*": ["prisma/*"]
+    },
+    "outDir": "./dist"
+  },
+  "include": [
+    "./**/*.ts",
+    "jest.config.js",
+    "lint-staged.config.js",
+    "prettier.config.js",
+    ".eslintrc.js"
+  ],
+  "exclude": ["node_modules/**/*", "dist", ".vscode/**/*", ".idea/**/*"]
+}
