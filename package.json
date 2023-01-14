@@ -1,5 +1,5 @@
 {
-  "name": "grpc-typescript-template",
+  "name": "node-grpc-typescript-example",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
